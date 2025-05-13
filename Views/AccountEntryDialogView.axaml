@@ -1,0 +1,111 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:Passomnemo.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="420"
+        Width="600" Height="400" WindowStartupLocation="CenterScreen"
+        x:DataType="vm:AccountEntryDialogViewModel"
+        x:Class="Passomnemo.Views.AccountEntryDialogView"
+        Title="AccountEntryDialogView">
+  <Window.Resources>
+    <vm:PasswordStrengthConverter x:Key="PasswordStrengthConverter"/>
+    <vm:AllTextFieldsFilledConverter x:Key="AllTextFieldsFilledConverter"/>
+    <vm:ShowPasswordConverter x:Key="ShowPasswordConverter"/>
+  </Window.Resources>
+  <Grid Margin="8" RowDefinitions="*, Auto, Auto, Auto, Auto, Auto" ColumnDefinitions="*, *, *, *">
+    <Grid Margin="8" Grid.Row="0" Grid.ColumnSpan="4" RowDefinitions="*,*,*,*,*,*,*" ColumnDefinitions="2*, 2*, Auto, *">
+      <!-- Row 0-1 -->
+      <Label Grid.Row="0" Grid.ColumnSpan="4" Content="Назва" 
+             VerticalAlignment="Center" HorizontalAlignment="Center"/>
+      <TextBox Grid.Row="1" Grid.ColumnSpan="4" x:Name="TitleBox" Text="{Binding UpdatedAccountEntry.ServiceName}" 
+                HorizontalContentAlignment="Center" TextWrapping="NoWrap"/>
+      <!-- Row 2-3 -->
+      <Label Grid.Row="2" Grid.ColumnSpan="4" Content="Вебсайт" 
+             VerticalAlignment="Center" HorizontalAlignment="Center"/>
+      <TextBox Grid.Row="3" Grid.ColumnSpan="4" Text="{Binding UpdatedAccountEntry.Website}" 
+                HorizontalContentAlignment="Center" TextWrapping="NoWrap"/>
+      <!-- Row 4-5 -->
+      <Label Grid.Row="4" Grid.Column="0" Content="Логін" 
+             VerticalAlignment="Center" HorizontalAlignment="Center"/>
+      <TextBox Grid.Row="5" Grid.Column="0" x:Name="LoginBox" Text="{Binding UpdatedAccountEntry.Login}" 
+                HorizontalContentAlignment="Center" TextWrapping="NoWrap"/>
+        
+      <Label Grid.Row="4" Grid.Column="1" Content="Пароль" 
+             VerticalAlignment="Center" HorizontalAlignment="Center"/>
+      <TextBox Grid.Row="5" Grid.Column="1" x:Name="PasswordBox" Text="{Binding UpdatedAccountEntry.Password}" 
+               HorizontalContentAlignment="Center" TextWrapping="NoWrap"
+               PasswordChar="{Binding ElementName=ShowPassword, Path=IsChecked, Converter={StaticResource ShowPasswordConverter}}"/>
+
+      <ToggleButton x:Name="ShowPassword" Grid.Row="5" Grid.Column="2" Height="32" Width="32" Content="O"
+                    VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+
+      <Label Grid.Row="4" Grid.Column="3" Content="Остання зміна" 
+             VerticalAlignment="Center" HorizontalAlignment="Center"/>
+      <TextBox Grid.Row="5" Grid.Column="3" Text="{Binding UpdatedAccountEntry.LastModified}" 
+                HorizontalContentAlignment="Center" TextWrapping="NoWrap"/>
+      <!-- Row 6 -->
+      <ItemsControl Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" ItemsSource="{Binding UpdatedAccountEntry.Tags}">
+        <ItemsControl.ItemsPanel>
+          <ItemsPanelTemplate>
+            <WrapPanel />
+          </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <Button Content="{Binding}" Margin="4" Padding="6,2"/>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </Grid>
+    <!-- Row 2 -->
+    <Label HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Content="Ярлик: "/>
+    <TextBox Name="tagbox" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
+    <Button HorizontalAlignment="Left" Grid.Row="1" Grid.Column="3" Content="Додати" Click="AddTag_Click"/>
+    <!-- Generate passwords -->
+    <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" Orientation="Horizontal">
+      <Label Content="Міцність паролю: "/>
+      <Label>
+        <Label.Content>        
+          <MultiBinding Converter="{StaticResource PasswordStrengthConverter}">
+            <Binding Path="UpdatedAccountEntry.Password" />
+          </MultiBinding>
+        </Label.Content>
+      </Label>
+    </StackPanel>
+    <Label Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Згенерувати пароль через:"/>
+    <!-- Diceware -->
+    <CheckBox Grid.Column="2" Grid.Row="3" HorizontalAlignment="Stretch" Content="Diceware" IsChecked="{Binding GenDiceware}"/>
+    <StackPanel IsVisible="{Binding GenDiceware}" Grid.Row="4" Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalAlignment="Center">
+      <Label Content="Кількість слів: " VerticalAlignment="Center"/>
+      <Label Content="{Binding DicewareWordCount}" VerticalAlignment="Center"/>
+      <Slider Width="100" Minimum="2" Maximum="10" Value="{Binding DicewareWordCount}"/>
+      <Button Content="Згенерувати" Click="Generate_Click"/>
+    </StackPanel>
+    
+    <!-- Shuffle symbols -->
+    <CheckBox Grid.Column="3" Grid.Row="3" HorizontalAlignment="Stretch" Content="Shuffle" IsChecked="{Binding !GenDiceware}"/>
+    <StackPanel IsVisible="{Binding !GenDiceware}" Grid.Row="4" Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalAlignment="Center">
+      <Label Content="Довжина паролю: " VerticalAlignment="Center"/>
+      <Label Content="{Binding ShufflePasswordLength}" VerticalAlignment="Center"/>
+      <Slider Width="100" Minimum="10" Maximum="32" Value="{Binding ShufflePasswordLength}"/>
+      <Button Content="Згенерувати" Click="Generate_Click"/>
+    </StackPanel>
+
+    <!-- Bottom line -->
+    <Label Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5" HorizontalAlignment="Center">
+      
+    </Label>
+    <Button Grid.Column="0" Grid.Row="5" HorizontalAlignment="Stretch" Width="100" Content="Відхилити" Command="{Binding CancelCommand}"/>
+    <Button Grid.Column="3" Grid.Row="5" HorizontalAlignment="Stretch" Width="100" Content="Зберегти" Command="{Binding OkCommand}">
+      <Button.IsEnabled>
+        <MultiBinding Converter="{StaticResource AllTextFieldsFilledConverter}">
+          <Binding ElementName="TitleBox" Path="Text"/>
+          <Binding ElementName="LoginBox" Path="Text"/>
+          <Binding ElementName="PasswordBox" Path="Text"/>
+          <Binding Path="IsEditMode"/>
+        </MultiBinding>
+      </Button.IsEnabled>
+    </Button>
+  </Grid>
+</Window>

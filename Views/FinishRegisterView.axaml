@@ -1,0 +1,54 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Passomnemo.ViewModels"
+             x:DataType="vm:FinishRegisterViewModel"
+             x:Class="Passomnemo.Views.FinishRegisterView">
+  <Design.DataContext>
+    <vm:FinishRegisterViewModel/>
+  </Design.DataContext>
+  <UserControl.Resources>
+    <vm:WordCorrectnessConverter x:Key="WordCorrectnessConverter"/>
+    <vm:PasswordLengthConverter x:Key="PasswordLengthConverter"/>
+  </UserControl.Resources>
+  
+  <Grid RowDefinitions="5*, 2*" ColumnDefinitions="*, *, *, *" Margin="10">
+    <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal"
+                HorizontalAlignment="Center" Margin="0,0,20,0">
+      <Label Name="fWordId" Content="text" VerticalAlignment="Center"/>
+      <TextBox Text="{Binding FirstEnteredWord}" Width="100" Height="20"/>
+    </StackPanel>
+    <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal"
+                HorizontalAlignment="Center" Margin="0,0,20,0">
+      <Label Name="sWordId" Content="text" VerticalAlignment="Center"/>
+      <TextBox Text="{Binding SecondEnteredWord}" Width="100" Height="20"/>
+    </StackPanel>
+    <StackPanel Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Center">
+      <StackPanel.IsEnabled>
+        <MultiBinding Converter="{StaticResource WordCorrectnessConverter}">
+          <Binding Path="FirstEnteredWord"/>
+          <Binding Path="FirstWord"/>
+          <Binding Path="SecondEnteredWord"/>
+          <Binding Path="SecondWord"/>
+        </MultiBinding>
+      </StackPanel.IsEnabled>
+      <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+        <ToggleButton x:Name="ShowPassword" Height="32" Width="32" Content="O"
+                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <TextBox Text="{Binding Password, Mode=TwoWay}" Width="200" 
+                 TextWrapping="NoWrap" VerticalAlignment="Center"
+                 PasswordChar="{Binding ElementName=ShowPassword, Path=IsChecked, Converter={StaticResource ShowPasswordConverter}}"/>
+        <Button Content="Створити" Click="Create_Click"
+                IsEnabled="{Binding Path=Password, Converter={StaticResource PasswordLengthConverter}}"/>
+      </StackPanel>
+      <StackPanel Margin="0,20,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+        <Label Content="Кількість слів: " VerticalAlignment="Center"/>
+        <Label Content="{Binding DicewareWordCount}" VerticalAlignment="Center"/>
+        <NumericUpDown Height="24" Width="100" Minimum="4" Maximum="10" Value="{Binding DicewareWordCount}"/>
+        <Button Content="Згенерувати" Click="Generate_Click"/>
+      </StackPanel>
+    </StackPanel>
+  </Grid>
+</UserControl>

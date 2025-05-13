@@ -1,0 +1,42 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Passomnemo.ViewModels"
+             x:DataType="vm:AuthViewModel"
+             x:Class="Passomnemo.Views.AuthView">
+  <Design.DataContext>
+    <vm:AuthViewModel/>
+  </Design.DataContext>
+  <UserControl.Resources>
+    <vm:ShowPasswordConverter x:Key="ShowPasswordConverter"/>
+  </UserControl.Resources>
+  <!-- MainGrid -->
+  <Grid Name="MainGrid" RowDefinitions="*, 4*, *, *" Margin="4">
+    <StackPanel Grid.Row="0" HorizontalAlignment="Center" Orientation="Horizontal">
+      <Button Content="Відкрити" Click="OpenFileButton_Clicked"/>
+      <TextBox Text="{Binding FilePath}" Width="200" TextWrapping="NoWrap" VerticalAlignment="Center"/>
+    </StackPanel>
+    <!-- Columns of words -->
+    <StackPanel Grid.Row="2" IsEnabled="{Binding IsFileSelected}">
+      <Label Name="CheckMnemonicLabel" Content="" HorizontalAlignment="Center"/>
+      <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+        <Button Height="32" Content="🗒" Click="Paste_Click"/>
+        <Button Height="32" Content="Перевірити" HorizontalAlignment="Center" Click="CheckMnemonic_Click"/>
+        <Button Height="32" Content="🗑" Click="Paste_Click"/>
+      </StackPanel>
+    </StackPanel>
+    <StackPanel Grid.Row="3" HorizontalAlignment="Center" IsEnabled="{Binding IsMnemonicValid}">
+      <Label Name="CheckPasswordLabel" Content="" HorizontalAlignment="Center"/>
+      <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">        
+        <ToggleButton x:Name="ShowPassword" Height="32" Width="32" Content="O"
+                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <TextBox Name="PasswordBox" Height="32" Width="200" 
+                 PasswordChar="{Binding ElementName=ShowPassword, Path=IsChecked, Converter={StaticResource ShowPasswordConverter}}"
+                 TextWrapping="NoWrap" VerticalAlignment="Center"/>
+        <Button Height="32" Content="Ввести" Click="Enter_Click"/>
+      </StackPanel>
+    </StackPanel>
+  </Grid>
+</UserControl>

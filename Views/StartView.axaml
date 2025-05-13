@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Passomnemo.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="vm:StartViewModel"
+             x:Class="Passomnemo.Views.StartView">
+  <Design.DataContext>
+    <vm:StartViewModel/>
+  </Design.DataContext>
+  
+  <Grid Background="Transparent" RowDefinitions="*, *, *, *" HorizontalAlignment="Center" Margin="30">
+    <StackPanel Grid.Row="1">      
+      <Label Content="Вітаємо у" HorizontalAlignment="Center" FontSize="16"/>
+      <Label Content="Passomnemo" HorizontalAlignment="Center" FontSize="22" FontWeight="Bold"/>
+    </StackPanel>
+    <StackPanel Grid.Row="2">
+      <Button Content="Увійти у сховище"  HorizontalAlignment="Center" Margin="10" Command="{Binding GoToAuthPage}"/>
+      <Button Content="Створити нове сховище" HorizontalAlignment="Center" Command="{Binding GoToRegisterPage}"/>     
+    </StackPanel>
+  </Grid>
+</UserControl>

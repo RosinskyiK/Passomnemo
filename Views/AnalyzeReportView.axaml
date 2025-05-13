@@ -1,0 +1,96 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Passomnemo.ViewModels"
+             x:DataType="vm:AnalyzeReportViewModel"
+             x:Class="Passomnemo.Views.AnalyzeReportView">
+  <Design.DataContext>
+    <vm:AnalyzeReportViewModel/>
+  </Design.DataContext>
+  <UserControl.Resources>
+    <vm:PasswordStrengthConverter x:Key="PasswordStrengthConverter"/>
+  </UserControl.Resources>
+  <ScrollViewer>
+    <Grid Margin="8" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto" ColumnDefinitions="*">
+      <!-- Weak passwords -->
+      <Label Grid.Row="0" Content="Слабкі паролі" HorizontalAlignment="Center" FontSize="16"/>
+      <Label Grid.Row="1" Content="Усе гаразд!" HorizontalAlignment="Center"
+             IsVisible="{Binding !Report.WeakPasswords.Count}"/>
+      <StackPanel Grid.Row="1" HorizontalAlignment="Stretch">
+        <ListBox x:Name="weak" SelectedItem="{Binding SelectedWeakItem}" 
+                 ItemsSource="{Binding Report.WeakPasswords}">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <Grid RowDefinitions="*, Auto, Auto" ColumnDefinitions="*, Auto">
+                <ContentControl Grid.Row="0" Grid.RowSpan="2" Content="{Binding}" 
+                                ContentTemplate="{StaticResource AccountEntryTemplate}" />
+                <Button Content="✏" VerticalAlignment="Bottom" Grid.Column="1" Grid.Row="0" 
+                        Height="40" Width="40" Click="Weak_Change_Click" Padding="4" FontSize="18"
+                        IsEnabled="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}"/>
+                <Button Content="🗑" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1"
+                        Height="40" Width="40" Click="Weak_Remove_Click" Padding="4" FontSize="18"
+                        IsEnabled="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}"/>
+                <StackPanel Grid.Row="2" Orientation="Horizontal">
+                  <Label Content="Міцність паролю: "/>
+                  <Label>
+                    <Label.Content>
+                      <MultiBinding Converter="{StaticResource PasswordStrengthConverter}">
+                        <Binding Path="Password" />
+                      </MultiBinding>
+                    </Label.Content>
+                  </Label>
+                </StackPanel> 
+              </Grid>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+      </StackPanel>
+      <!-- Duplicate passwords -->
+      <Label Grid.Row="2" Content="Повторювальні паролі" HorizontalAlignment="Center" FontSize="16"/>
+      <Label Grid.Row="3" Content="Усе гаразд!" HorizontalAlignment="Center"
+             IsVisible="{Binding !Report.DuplicatePasswords.Count}"/>
+      <StackPanel Grid.Row="3" HorizontalAlignment="Stretch">
+        <ListBox x:Name="duplicate" SelectedItem="{Binding SelectedDuplicateItem}" 
+                 ItemsSource="{Binding Report.DuplicatePasswords}">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <Grid RowDefinitions="*, Auto, Auto" ColumnDefinitions="*, Auto">
+                <ContentControl Grid.Row="0" Grid.RowSpan="2" Content="{Binding}" ContentTemplate="{StaticResource AccountEntryTemplate}" />
+                <Button Content="✏" VerticalAlignment="Bottom" Grid.Column="1" Grid.Row="0"
+                        Height="40" Width="40" Click="Duplicate_Change_Click" Padding="4" FontSize="18"
+                        IsEnabled="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}"/>
+                <Button Content="🗑" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1"
+                        Height="40" Width="40" Click="Duplicate_Remove_Click" Padding="4" FontSize="18"
+                        IsEnabled="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}"/>
+              </Grid>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+      </StackPanel>
+      <!-- Expired passwords -->
+      <Label Grid.Row="4" Content="Застарілі паролі" HorizontalAlignment="Center" FontSize="16"/>
+      <Label Grid.Row="5" Content="Усе гаразд!" HorizontalAlignment="Center"
+             IsVisible="{Binding !Report.ExpiredPasswords.Count}"/>
+      <StackPanel Grid.Row="5" HorizontalAlignment="Stretch">
+        <ListBox x:Name="expired" SelectedItem="{Binding SelectedExpiredItem}" 
+                 ItemsSource="{Binding Report.ExpiredPasswords}">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <Grid RowDefinitions="*, Auto, Auto" ColumnDefinitions="*, Auto">
+                <ContentControl Grid.Row="0" Grid.RowSpan="2" Content="{Binding}" ContentTemplate="{StaticResource AccountEntryTemplate}" />
+                <Button Content="✏" VerticalAlignment="Bottom" Grid.Column="1" Grid.Row="0"
+                        Height="40" Width="40" Click="Expired_Change_Click" Padding="4" FontSize="18"
+                        IsEnabled="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}"/>
+                <Button Content="🗑" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1"
+                        Height="40" Width="40" Click="Expired_Remove_Click" Padding="4" FontSize="18"
+                        IsEnabled="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}"/>
+              </Grid>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+      </StackPanel>
+    </Grid>
+  </ScrollViewer>
+</UserControl>

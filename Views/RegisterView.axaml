@@ -1,0 +1,28 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Passomnemo.ViewModels"
+             x:DataType="vm:RegisterViewModel"
+             x:Class="Passomnemo.Views.RegisterView">
+  <Design.DataContext>
+    <vm:RegisterViewModel/>
+  </Design.DataContext>
+  <!-- MainGrid -->
+  <Grid Name="MainGrid" RowDefinitions="*, *, 7*, *" Margin="0,16,0,16">
+    <StackPanel Grid.Row="0" HorizontalAlignment="Center" Orientation="Horizontal">
+      <Label Content="Назва сховища: " HorizontalAlignment="Center" VerticalAlignment="Center"/>
+      <TextBox Text="{Binding FileName}" Width="200" TextWrapping="NoWrap" VerticalAlignment="Center"/>
+    </StackPanel>
+    <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal">
+      <Button Content="Обрати папку" Click="OpenFolderButton_Clicked"/>
+      <TextBox Text="{Binding FolderPath}" Width="200" TextWrapping="NoWrap" VerticalAlignment="Center"/>
+    </StackPanel>
+    <!-- Columns of words -->
+    <StackPanel Grid.Row="3" IsEnabled="{Binding IsFolderSelected}">
+      <Label Name="WarningLabel" HorizontalAlignment="Center"/>
+      <Button Content="Продовжити" HorizontalAlignment="Center" Click="Continue_Click"/>
+    </StackPanel>
+  </Grid>
+</UserControl>

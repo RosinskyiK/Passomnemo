@@ -1,0 +1,131 @@
+{
+  "format": 1,
+  "restore": {
+    "F:\\NewVSProjects\\Passomnemo\\Passomnemo.csproj": {}
+  },
+  "projects": {
+    "F:\\NewVSProjects\\Passomnemo\\Passomnemo.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "F:\\NewVSProjects\\Passomnemo\\Passomnemo.csproj",
+        "projectName": "Passomnemo",
+        "projectPath": "F:\\NewVSProjects\\Passomnemo\\Passomnemo.csproj",
+        "packagesPath": "C:\\Users\\deadw\\.nuget\\packages\\",
+        "outputPath": "F:\\NewVSProjects\\Passomnemo\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "F:\\VSshared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\deadw\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Avalonia": {
+              "target": "Package",
+              "version": "[11.2.1, )"
+            },
+            "Avalonia.Desktop": {
+              "target": "Package",
+              "version": "[11.2.1, )"
+            },
+            "Avalonia.Diagnostics": {
+              "target": "Package",
+              "version": "[11.2.1, )"
+            },
+            "Avalonia.Fonts.Inter": {
+              "target": "Package",
+              "version": "[11.2.1, )"
+            },
+            "Avalonia.Themes.Fluent": {
+              "target": "Package",
+              "version": "[11.2.1, )"
+            },
+            "BIP39-NET": {
+              "target": "Package",
+              "version": "[1.0.1, )"
+            },
+            "CommunityToolkit.Mvvm": {
+              "target": "Package",
+              "version": "[8.2.1, )"
+            },
+            "Konscious.Security.Cryptography.Argon2": {
+              "target": "Package",
+              "version": "[1.3.1, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.20.72, )"
+            },
+            "ReactiveUI": {
+              "target": "Package",
+              "version": "[20.2.45, )"
+            },
+            "System.Formats.Cbor": {
+              "target": "Package",
+              "version": "[9.0.3, )"
+            },
+            "System.Security.Cryptography.Algorithms": {
+              "target": "Package",
+              "version": "[4.3.1, )"
+            },
+            "xunit.assert": {
+              "target": "Package",
+              "version": "[2.9.3, )"
+            },
+            "xunit.extensibility.core": {
+              "target": "Package",
+              "version": "[2.9.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

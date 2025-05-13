@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Passomnemo.ViewModels"
+             x:DataType="vm:SettingsViewModel"
+             x:Class="Passomnemo.Views.SettingsView">
+  <Design.DataContext>
+    <vm:SettingsViewModel/>
+  </Design.DataContext>
+  <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="Auto, *" Margin="8">
+    <Label Grid.Row="0" Grid.Column="0" Content="Через скільки днів вважати пароль застралім:"
+           VerticalAlignment="Center" Margin="16"/>
+    <NumericUpDown Grid.Row="0" Grid.Column="1" Minimum="7" Maximum="180" 
+                   Height="36" VerticalContentAlignment="Center"
+                   Value="{Binding SettingEntries.OldPasswordRemindTime}"/>
+    <Label Grid.Row="1" Grid.Column="0" Content="Термін придатності активної сесії (у днях):"
+           VerticalAlignment="Center" Margin="16"/>
+    <NumericUpDown Grid.Row="1" Grid.Column="1" Minimum="1" Maximum="30"
+                   Height="36" VerticalContentAlignment="Center"
+                   Value="{Binding SettingEntries.SessionTokenLifetime}"/>
+    <Label Grid.Row="2" Grid.Column="0" Content="Через скільки днів нагадати зробити наступну резервну копію:"
+           VerticalAlignment="Center" Margin="16"/>
+    <NumericUpDown Grid.Row="2" Grid.Column="1" Minimum="1" Maximum="180"
+                   Height="36" VerticalContentAlignment="Center"
+                   Value="{Binding SettingEntries.BackupRemindTime}"/>
+  </Grid>
+</UserControl>

@@ -1,0 +1,60 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Design.PreviewWith>
+    <Border Padding="20" Background="Gray">
+      <!-- Add Controls for Previewer Here -->
+      <StackPanel Orientation="Horizontal">        
+        <Button Content="Hello, Avalonia!" />
+        <TextBox Text="Hello, Avalonia!" />
+      </StackPanel>
+    </Border>
+  </Design.PreviewWith>
+  <!-- Add Styles Here -->
+  <!-- Button -->
+  <Style Selector="Button">    
+    <Style Selector="^">
+      <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+      <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+      <Setter Property="Height" Value="32"></Setter>
+      <Setter Property="Background" Value="{DynamicResource PrimaryColor}"></Setter>
+      <Setter Property="Foreground" Value="{DynamicResource FontPrimaryColor}"></Setter>
+      <Setter Property="BorderBrush" Value="{DynamicResource FontPrimaryColor}"></Setter>
+    </Style>
+    <Style Selector="^:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource SecondaryColor}"></Setter>
+      <Setter Property="Foreground" Value="{DynamicResource FontSecondaryColor}"></Setter>   
+      <Setter Property="BorderBrush" Value="{DynamicResource FontSecondaryColor}"></Setter>
+    </Style>
+  </Style>
+  <!-- Label -->
+  <Style Selector="Label">
+    <Setter Property="Foreground" Value="{DynamicResource FontPrimaryColor}"></Setter>
+  </Style>
+  <!-- Textbox -->
+  <Style Selector="TextBox">
+    <Style Selector="^">
+      <Setter Property="Background" Value="{DynamicResource FontPrimaryColor}"></Setter>
+      <Setter Property="Foreground" Value="{DynamicResource SecondaryColor}"></Setter>
+      <Setter Property="BorderBrush" Value="{DynamicResource SecondaryColor}"></Setter>
+    </Style>
+    <Style Selector="^:focus-within /template/ Border">
+      <Setter Property="Background" Value="{DynamicResource FontPrimaryColor}"></Setter>
+      <Setter Property="BorderBrush" Value="{DynamicResource FontSecondaryColor}"></Setter>
+    </Style>
+    <Style Selector="^:pointerover">
+      <Setter Property="Foreground" Value="{DynamicResource FontPrimaryColor}"></Setter>
+      <Setter Property="Background" Value="{DynamicResource FontSecondaryColor}"></Setter>
+    </Style>
+    <Style Selector="^:pointerover /template/ Border">
+      <Setter Property="Background" Value="{DynamicResource FontSecondaryColor}"></Setter>
+      <Setter Property="BorderBrush" Value="{DynamicResource FontPrimaryColor}"></Setter>
+    </Style>
+    <Style Selector="^:focus">
+      <Setter Property="Foreground" Value="{DynamicResource SecondaryColor}"></Setter>
+    </Style>  
+  </Style>
+  <!-- TextBlock -->
+  <Style Selector="TextBlock">
+    <Setter Property="Foreground" Value="{DynamicResource FontPrimaryColor}"></Setter>
+  </Style>
+</Styles>
